@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     }
     public bool IsGrounded()
     {
-        // Physics.Linecast() を使って足元から線を張り、そこに何かが衝突していたら true とする
+        // Physics.Linecast() を使って足元から線を張り、そこに地面が衝突していたら true とする
         Vector2 start = this.transform.position;   // start: オブジェクトの中心
         Vector2 end = start + Vector2.down * m_isGroundedLength;  // end: start から真下の地点
         Debug.DrawLine(start, end); // 動作確認用に Scene ウィンドウ上で線を表示する
