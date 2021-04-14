@@ -21,7 +21,7 @@ public class EnemyController : MonoBehaviour
     {
         m_rb2d.velocity = Vector2.right * m_enemySpeed;
 
-        anim.Play("EnemyRun");
+        anim.Play("Animation");
 
         if (!IsGrounded())
         {
