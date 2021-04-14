@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,10 +10,8 @@ public class GameManager : MonoBehaviour
     /// <summary>ゲームの状態</summary>
     GameState m_gameState = GameState.NonInitialized;
     [SerializeField] Transform m_playerSpawnPoint;
-    void Start()
-    {
-        
-    }
+    public GameObject panel;
+
 
     // Update is called once per frame
     void Update()
@@ -33,12 +32,22 @@ public class GameManager : MonoBehaviour
                 Debug.Log("状態遷移：PlayerDead");
                 m_gameState = GameState.NonInitialized;
                 break;
+            case GameState.Finished:
+                Debug.Log("状態遷移：Finished");
+                SceneManager.LoadScene("Title");
+                break;
         }
     }
     public void PlayerDead()
     {
         Debug.Log("Player Dead.");
         m_gameState = GameState.PlayerDead;   // ステータスをプレイヤーがやられた状態に更新する
+    }
+    public void Finished()
+    {
+        Debug.Log("Goal!");
+        m_gameState = GameState.Finished;   // ステータスをゴールした状態に更新する
+
     }
 
     enum GameState
@@ -51,5 +60,7 @@ public class GameManager : MonoBehaviour
         InGame,
         /// <summary>プレイヤーがやられた</summary>
         PlayerDead,
+        /// <summary>ゴールした</summary>
+        Finished,
     }
 }
