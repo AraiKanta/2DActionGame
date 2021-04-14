@@ -19,8 +19,11 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D m_rb2d = null;
     [SerializeField]LayerMask groundLayer;
 
+    Animator anim;
+
     void Start()
     {
+        anim = GetComponent<Animator>();
         m_rb2d = GetComponent<Rigidbody2D>();
         m_jumpCount = 0;
     }
@@ -42,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            anim.SetBool("Jump",true);
+
             if (m_jumpCount < m_jumpMaxCount)
             {
                 m_rb2d.AddForce(Vector2.up * m_jumpPower,ForceMode2D.Impulse);
@@ -50,6 +55,8 @@ public class PlayerController : MonoBehaviour
         }
         if (IsGrounded())
         {
+            anim.SetBool("Jump", false);
+
             Debug.Log("接地した");
             m_jumpCount = 1;
         }
