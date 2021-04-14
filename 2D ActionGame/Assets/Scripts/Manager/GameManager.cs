@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject m_playerPrefab = null;
     /// <summary>ゲームの状態</summary>
     GameState m_gameState = GameState.NonInitialized;
-    // Start is called before the first frame update
+    [SerializeField] Transform m_playerSpawnPoint;
     void Start()
     {
         
@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
         {
             case GameState.NonInitialized:
                 Debug.Log("状態遷移：NonInitialized");
-                Instantiate(m_playerPrefab);    // プレイヤーを生成する
+                GameObject go = Instantiate(m_playerPrefab);    // 指定の位置にプレイヤーを生成する
+                go.transform.position = m_playerSpawnPoint.position;
                 m_gameState = GameState.Initialized;   // ステータスを初期化済みにする
                 break;
             case GameState.Initialized:
