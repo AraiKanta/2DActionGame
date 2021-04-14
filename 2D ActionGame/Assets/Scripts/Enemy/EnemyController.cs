@@ -10,14 +10,18 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float m_isGroundedLength = 1.1f;
     Rigidbody2D m_rb2d = null;
     [SerializeField] LayerMask groundLayer;
+    Animator anim;
 
     void Start()
     {
         m_rb2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
         m_rb2d.velocity = Vector2.right * m_enemySpeed;
+
+        anim.Play("EnemyRun");
 
         if (!IsGrounded())
         {
