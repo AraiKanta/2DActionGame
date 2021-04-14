@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    /// <summary>無敵モード</summary>
+    [SerializeField] bool m_godMode = false;
     /// <summary>プレイヤーの移動速度</summary>
     [SerializeField] float m_speed = 5f;
     /// <summary>ジャンプの強さ</summary>
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float m_isGroundedLength = 1.1f;
     Rigidbody2D m_rb2d = null;
     [SerializeField]LayerMask groundLayer;
+
     void Start()
     {
         m_rb2d = GetComponent<Rigidbody2D>();
@@ -51,6 +54,32 @@ public class PlayerController : MonoBehaviour
             m_jumpCount = 1;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 敵に接触したら、やられる
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("敵と接触した");
+            // 無敵モードの時は console にログだけ出す
+            if (m_godMode)
+            {
+                Debug.Log("敵に接触（無敵モードです）");
+            }
+            else
+            {
+                // GameManager にやられたことを知らせる
+                GameManager gm = GameObject.FindObjectOfType<GameManager>();
+                if (gm)
+                {
+                    gm.PlayerDead();
+                }
+
+                Destroy(this.gameObject);   // 自分を破棄する
+            }
+        }
+    }
+        
     public bool IsGrounded()
     {
         // Physics.Linecast() を使って足元から線を張り、そこに地面が衝突していたら true とする
