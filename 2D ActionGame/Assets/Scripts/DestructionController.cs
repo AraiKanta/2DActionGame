@@ -14,6 +14,7 @@ public class DestructionController : MonoBehaviour
         // ゲームの範囲から出たら消える
         if (collision.tag == "GameZone")
         {
+            Debug.Log("画面外に出たので破棄します");
             Destroy(this.gameObject);
         }
     }
