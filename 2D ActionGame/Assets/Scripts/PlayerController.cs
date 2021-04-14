@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>ジャンプできる回数</summary>
     [SerializeField] int m_jumpMaxCount = 2;
     /// <summary>ジャンプした回数</summary>
-    int m_jumpCount = 0;
+    int m_jumpCount = 1;
     /// <summary>接地判定の際、中心 (Pivot) からどれくらいの距離を「接地している」と判定するかの長さ</summary>
     [SerializeField] float m_isGroundedLength = 1.1f;
     Rigidbody2D m_rb2d = null;
@@ -26,8 +26,6 @@ public class PlayerController : MonoBehaviour
     {
         // 水平方向の入力を検出する
         float h = Input.GetAxisRaw("Horizontal");
-        //// 入力に応じてプレイヤーを水平方向に動かす
-        //m_rb2d.velocity = h * Vector2.right * m_speed;
         // 入力方向のベクトルを組み立てる
         Vector2 dir = Vector2.right * h;
         if (dir == Vector2.zero)
@@ -50,12 +48,12 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded())
         {
             Debug.Log("接地した");
-            m_jumpCount = 0;
+            m_jumpCount = 1;
         }
     }
     public bool IsGrounded()
     {
-        // Physics.Linecast() を使って足元から線を張り、そこに何かが衝突していたら true とする
+        // Physics.Linecast() を使って足元から線を張り、そこに地面が衝突していたら true とする
         Vector2 start = this.transform.position;   // start: オブジェクトの中心
         Vector2 end = start + Vector2.down * m_isGroundedLength;  // end: start から真下の地点
         Debug.DrawLine(start, end); // 動作確認用に Scene ウィンドウ上で線を表示する
