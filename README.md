@@ -14,4 +14,4 @@
 ![GameScene](https://user-images.githubusercontent.com/57022767/122709979-4b984900-d29a-11eb-8d35-2556c16444a7.png)
 
 * ゲーム動画
-* https://youtu.be/L0LMKDSUBt0
+* https://youtu.be/DIrA9aC-E_o
